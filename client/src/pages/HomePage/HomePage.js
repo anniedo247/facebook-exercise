@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +9,7 @@ import "./style.css";
 
 import Post from "../../components/Post";
 import Composer from "../../components/Composer";
+import { postActions } from "../../redux/actions/post.actions";
 
 const SIDEBAR_BUTTONS = [
   {
@@ -45,9 +46,13 @@ const SidebarButton = ({ title, icon }) => {
 
 /* STEP 3 */
 export default function HomePage() {
+  const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const posts = useSelector((state) => state.post.posts);
   
+  console.log({post: posts[0]})
   useEffect(() => {
+    dispatch(postActions.postsRequest());
   }, []);
 
   if (!isAuthenticated) return <Redirect to="/auth" />;
@@ -67,10 +72,10 @@ export default function HomePage() {
         className="d-flex flex-column align-items-center posts-container"
       >
         <Composer />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
+        {posts &&
+          posts.map((p) => {
+            return <Post key={p._id} {...p} />;
+          })}
       </Col>
       <Col></Col>
     </Row>

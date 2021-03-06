@@ -59,13 +59,13 @@ commentsController.destroy = async (req, res) => {
 };
 
 commentsController.list = async (req, res) => {
-  await Comment.find({}, (err, comments) => {
+  await Comment.find({}).populate('owner')
     if (!comments) {
       res.status(404).json({ message: "Comments not found." });
     } else {
       res.json(comments);
     }
-  });
+ 
 };
 
 module.exports = commentsController;

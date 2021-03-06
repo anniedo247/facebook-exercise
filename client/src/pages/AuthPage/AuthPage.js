@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link, Redirect } from "react-router-dom";
+import FacebookLogin from "react-facebook-login";
+import { GoogleLogin } from "react-google-login";
+
+import api from "../../redux/api";
 
 import {
   Col,
@@ -18,6 +22,8 @@ import "./style.css";
 import { authActions } from "../../redux/actions";
 
 import Footer from "../../components/Footer";
+const FB_APP_ID = process.env.REACT_APP_FB_APP_ID;
+const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 export default function RegisterPage() {
   const dispatch = useDispatch();
@@ -40,6 +46,21 @@ export default function RegisterPage() {
     setUser({ ...user, [e.target.id]: e.target.value });
   };
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(authActions.register(null, user.email, user.password));
+  };
+  // const oauthLogin = async (user, authProvider) => {
+  //   const access_token = user.accessToken;
+  //   const url = `/api/auth/login/${authProvider}`;
+  //   const res = await api.post(url, { access_token, user });
+  //   const newUser = res.data.user;
+  //   if (newUser) {
+  //     newUser.authenticated = true;
+  //     newUser.provider = authProvider;
+  //     setUser(newUser);
+  //   }
+  // };
   if (isAuthenticated) return <Redirect to="/" />;
 
   return (
@@ -94,7 +115,7 @@ export default function RegisterPage() {
                     Forgot Password?
                   </Link>
                 </Form.Group>
-                <hr className="hr" />
+
                 <Button
                   type="submit"
                   variant="success"
@@ -125,20 +146,41 @@ export default function RegisterPage() {
         </Modal.Header>
         <Modal.Body>
           {/* STEP 1 */}
-          <Form className="d-flex flex-column justify-content-center">
+          <Form
+            onSubmit={onSubmit}
+            className="d-flex flex-column justify-content-center"
+          >
             <Form.Row>
               <Form.Group as={Col} controlId="email">
-                <Form.Label>Email</Form.Label>
                 <Form.Control
-                  type="email"
-                  placeholder="Enter email"
+                  type="name"
+                  placeholder="First Name"
+                  onChange={onChange}
                 />
               </Form.Group>
               <Form.Group as={Col} controlId="password">
-                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="name"
+                  placeholder="Last Name"
+                  onChange={onChange}
+                />
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Form.Group as={Col} controlId="email">
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email"
+                  onChange={onChange}
+                />
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Form.Group as={Col} controlId="password">
                 <Form.Control
                   type="password"
                   placeholder="Password"
+                  onChange={onChange}
                 />
               </Form.Group>
             </Form.Row>
