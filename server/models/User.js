@@ -6,9 +6,10 @@ const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 const userSchema = Schema(
   {
-    name: { type: String, required: false, unique: false, default: "" },
+    firstName: { type: String, required: true, unique: false},
+    lastName: { type: String, required: true, unique: false},
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: false, unique: false },
+    password: { type: String, required: true, unique: false },
     avatarUrl: { type: String, required: false, default: "" },
     googleId: { type: String, required: false, default: "" },
     facebookId: { type: String, required: false, default: "" },
@@ -27,7 +28,8 @@ userSchema.statics.findOrCreate = function findOrCreate(profile, cb) {
       const salt = await bcrypt.genSalt(10);
       newPassword = await bcrypt.hash(newPassword, salt);
 
-      userObj.name = profile.name;
+      userObj.firstName = profile.firstName;
+      userObj.lastName = profile.lastName;
       userObj.email = profile.email;
       userObj.password = newPassword;
       userObj.googleId = profile.googleId;

@@ -151,16 +151,16 @@ export default function RegisterPage() {
             className="d-flex flex-column justify-content-center"
           >
             <Form.Row>
-              <Form.Group as={Col} controlId="email">
+              <Form.Group as={Col} controlId="firstname">
                 <Form.Control
-                  type="name"
+                  type="firstname"
                   placeholder="First Name"
                   onChange={onChange}
                 />
               </Form.Group>
-              <Form.Group as={Col} controlId="password">
+              <Form.Group as={Col} controlId="lastname">
                 <Form.Control
-                  type="name"
+                  type="lastname"
                   placeholder="Last Name"
                   onChange={onChange}
                 />
