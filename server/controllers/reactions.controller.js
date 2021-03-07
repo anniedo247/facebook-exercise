@@ -13,7 +13,7 @@ reactionsController.create = catchAsync(async (req, res) => {
   console.log(req.body)
   const reaction = await Reaction.create({
     owner: req.userId,
-    enum: "Like",
+    enum: "Care",
     post: req.body.targetId,
   });
   const post = await Post.findById(req.body.targetId);

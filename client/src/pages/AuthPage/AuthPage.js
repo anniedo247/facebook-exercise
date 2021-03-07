@@ -29,7 +29,7 @@ export default function RegisterPage() {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  const [user, setUser] = useState({ email: "", password: "" });
+  const [user, setUser] = useState({ firstName:"", lastName:"",email: "", password: "" });
   const [show, setShow] = useState(false);
 
   const onToggleModal = (e) => {
@@ -47,8 +47,10 @@ export default function RegisterPage() {
   };
 
   const onSubmit = (e) => {
+    console.log("User day:",user)
+    const {firstName,lastName,email,password} = user;
     e.preventDefault();
-    dispatch(authActions.register(null, user.email, user.password));
+    dispatch(authActions.register(firstName, lastName, email, password));
   };
   // const oauthLogin = async (user, authProvider) => {
   //   const access_token = user.accessToken;
@@ -151,14 +153,14 @@ export default function RegisterPage() {
             className="d-flex flex-column justify-content-center"
           >
             <Form.Row>
-              <Form.Group as={Col} controlId="firstname">
+              <Form.Group as={Col} controlId="firstName">
                 <Form.Control
                   type="firstname"
                   placeholder="First Name"
                   onChange={onChange}
                 />
               </Form.Group>
-              <Form.Group as={Col} controlId="lastname">
+              <Form.Group as={Col} controlId="lastName">
                 <Form.Control
                   type="lastname"
                   placeholder="Last Name"

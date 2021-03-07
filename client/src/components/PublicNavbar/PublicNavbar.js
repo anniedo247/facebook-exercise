@@ -18,7 +18,7 @@ import { authActions } from "../../redux/actions";
 
 const PublicNavbar = () => {
   const dispatch = useDispatch();
-  const { loading, isAuthenticated } = useSelector((state) => state.auth);
+  const { loading, isAuthenticated ,user} = useSelector((state) => state.auth);
 
   const handleLogout = () => {
     dispatch(authActions.logout());
@@ -55,7 +55,7 @@ const PublicNavbar = () => {
           </div>
         }
       >
-        <NavDropdown.Item href="#action/3.1">Loi V Tran</NavDropdown.Item>
+        <NavDropdown.Item href="#action/3.1">{user.firstName} {user.lastName}</NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item onClick={handleLogout} href="#action/3.4">
           Log out

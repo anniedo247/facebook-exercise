@@ -7,9 +7,12 @@ const loginRequest = (email, password) => async (dispatch) => {
   dispatch({ type: types.LOGIN_REQUEST, payload: null });
   try {
     const res = await api.post("/auth/login", { email, password });
-    const name = res.data.data.user.name;
+    console.log("datadata",res.data.data)
+    const firstName = res.data.data.user.firstName;
+    const lastName = res.data.data.user.lastName;
+
     dispatch({ type: types.LOGIN_SUCCESS, payload: res.data.data });
-    toast.success(`Welcome ${name}`);
+    toast.success(`Welcome ${firstName} ${lastName}`);
     api.defaults.headers.common["authorization"] =
       "Bearer " + res.data.data.accessToken;
 
@@ -47,6 +50,7 @@ const loginGoogleRequest = (access_token) => async (dispatch) => {
   }
 };
 const register = (firstName,lastName, email, password, avatarUrl) => async (dispatch) => {
+  console.log(firstName,lastName, email, password, avatarUrl)
   dispatch({ type: types.REGISTER_REQUEST, payload: null });
   try {
     const res = await api.post("/users", { firstName,lastName, email, password, avatarUrl });

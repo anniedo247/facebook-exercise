@@ -18,6 +18,7 @@
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.0",
     "react-dom": "^17.0.1",
+    "react-facebook-emoji": "^1.0.12",
     "react-facebook-login": "^4.1.1",
     "react-fontawesome": "^1.7.1",
     "react-google-login": "^5.2.2",
