@@ -1,5 +1,5 @@
 const Post = require("../models/Post");
-const Reaction = require("../models/Reaction");
+const {Reaction, ReactionType} = require("../models/Reaction");
 
 const {
   AppError,
@@ -13,7 +13,7 @@ reactionsController.create = catchAsync(async (req, res) => {
   console.log(req.body)
   const reaction = await Reaction.create({
     owner: req.userId,
-    enum: "Like",
+    reactionType: ReactionType.Like,
     post: req.body.targetId,
   });
   const post = await Post.findById(req.body.targetId);

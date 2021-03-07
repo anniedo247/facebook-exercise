@@ -3,7 +3,11 @@ const Schema = mongoose.Schema;
 
 const reactionSchema = Schema(
   {
-    enum: ["Like", "Heart", "Care", "Laugh", "Angry", "Sad"],
+    reactionType: {
+      type: String,
+      enum: ReactionType,
+      default: ReactionType.Like
+    },
     owner: {
       ref: "User",
       required: true,
@@ -21,4 +25,12 @@ const reactionSchema = Schema(
 );
 
 const Reaction = mongoose.model("Reaction", reactionSchema);
-module.exports = Reaction;
+const ReactionType = {
+  Like = "Like", 
+  Heart = "Heart", 
+  Care = "Care", 
+  Laugh = "Laugh", 
+  Angry = "Angry", 
+  Sad = "Sad"
+}
+module.exports = {Reaction, ReactionType};
